@@ -1,0 +1,10 @@
+name: "mongodb"
+aliases:
+  - "mongo"
+  - "db-nosql"
+domain: "mongodb.roadtotech.me"
+description: "MongoDB NoSQL Database & Express Admin Panel"
+visible: false
+auth: false
+networks:
+  - proxy-net
