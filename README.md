@@ -1,27 +1,33 @@
-# 🍃 Homelab MongoDB
+# 🍃 Homelab MongoDB & Mongo Express
 
-Containerized MongoDB instance for local application development and document storage.
-
-Part of the [homelab-core](https://github.com/kiskaadee/homelab-core) cluster ecosystem.
+NoSQL document database stack with MongoDB engine and Mongo Express interactive admin dashboard.
 
 ---
 
-## 🏗️ Architecture & Storage
+## 🏗️ Architecture & Requirements
 
-- **Container Image**: `mongo:latest`
-- **Volume**: Named Docker volume `mongo_data` (or bind mount)
-- **Network**: `proxy-net`
-- **Port**: `27017`
+- **Proxy Network**: Attached to external `proxy-net`
+- **Domain**: `mongodb.roadtotech.me`
+- **Target Port**: `8081` (Mongo Express Web GUI), `27017` (MongoDB TCP)
 
 ---
 
-## ⚙️ Environment Variables & Secrets
+## ⚙️ Configuration & Metadata (`app.yaml`)
 
-| Variable | Description | Source |
-| :--- | :--- | :--- |
-| `MONGO_ROOT_USERNAME` | Database administrator user | SOPS secrets |
-| `MONGO_ROOT_PASSWORD` | Database administrator password | SOPS secrets |
-| `MONGO_DOMAIN` | Internal service FQDN | `mongodb.arch-services.mywire.org` |
+```yaml
+name: "mongodb"
+aliases:
+  - "mongo"
+  - "db-nosql"
+domain: "mongodb.roadtotech.me"
+description: "MongoDB NoSQL Database & Express Admin Panel"
+visible: false
+auth: false
+networks:
+  - proxy-net
+env:
+  MONGO_DOMAIN: "mongodb.roadtotech.me"
+```
 
 ---
 
@@ -29,10 +35,15 @@ Part of the [homelab-core](https://github.com/kiskaadee/homelab-core) cluster ec
 
 ### Via Orchestrator (`appctl`)
 ```bash
-appctl up homelab-mongodb
+appctl up mongodb
 ```
 
 ### Manual Deployment
 ```bash
 docker compose up -d
 ```
+
+---
+
+## 📄 License
+This repository is released into the public domain under the [Unlicense](LICENSE).
