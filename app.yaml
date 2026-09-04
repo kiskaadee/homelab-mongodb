@@ -8,3 +8,5 @@ visible: false
 auth: false
 networks:
   - proxy-net
+env:
+  MONGO_DOMAIN: "mongodb.roadtotech.me"
